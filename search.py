@@ -1,6 +1,5 @@
 #!/bin/python
 
-
 # Import stuff
 import sys
 import time
