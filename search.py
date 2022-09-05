@@ -4,11 +4,11 @@
 from cgitb import reset
 import sys
 import time
-import random
 import socket
 import colorama
 from datetime import datetime as date
 from colorama import Fore, Back, Style
+from random import randint
 
 # 127.0.0.1     80
 #  1  2 3 4    port
@@ -17,13 +17,20 @@ from colorama import Fore, Back, Style
 portStart = int(input(Fore.BLUE + "Enter Port Start: "))
 portEnd = int(input(Fore.BLUE + "Enter Port End: "))
 
+def ip_gen():
+    num = randint(0, 256)
+    return num
+
 # Define the target
 if len(sys.argv) == 2: # name.py = 1 argument
-    target = socket.gethostbyname(sys.argv[1]) # Convert hostname to IPv4
+    #target = socket.gethostbyname(sys.argv[1]) # Convert hostname to IPv4
+    print('ye')
 
 else:
     print(Fore.RED + "[!] Invalid amount of arguments.")
     print(Fore.RED + "[!] Syntax: python3 search.py <IP>")
+
+target = "{}.{}.{}.{}".format(randint(0, 255), randint(0, 255), randint(0, 255), randint(0, 255))
 
 # Banner
 print(Fore.CYAN + "~" * 20)
@@ -36,7 +43,8 @@ try:
         socket.setdefaulttimeout(1) # Wait 1 second, continue
         result = s.connect_ex((target, port))
 
-        #print("[" + Fore.RED + "DBG" + Fore.RESET + "] " + "Checking port: {}".format(port)) #DEBUG
+        print("[" + Fore.RED + "DBG" + Fore.RESET + "] " + "Checking port: {}".format(port)) #DEBUG
+        print(target)
 
         if result == 0:
             print(Fore.GREEN + "[*] Port {} is open".format(port))
@@ -52,7 +60,7 @@ except KeyboardInterrupt:
     sys.exit()
 
 except socket.gaierror:
-    print(Fore.RED + "[!] Hostname could not be resolved!")
+    print(Fore.RED + "[!] {} Hostname could not be resolved!".format(target))
     sys.exit()
 
 except socket.error:
