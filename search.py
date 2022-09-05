@@ -26,18 +26,17 @@ else:
     print(Fore.RED + "[!] Syntax: python3 search.py <IP>")
 
 # Banner
-print("~" * 50)
+print(Fore.CYAN + "~" * 20)
 print("Scanning target: " + target)
-print("Time Started: " + str(date.now()))
-print("~" * 50)
+print("~" * 20 + Fore.RESET)
 
 try:
     for port in range(portStart, portEnd + 1): # 80 goes to 79 (whats why the + 1)
         s = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
-        socket.setdefaulttimeout(1) # Wait 1 second continue
-        result = s.connect_ex((target,port))
+        socket.setdefaulttimeout(1) # Wait 1 second, continue
+        result = s.connect_ex((target, port))
 
-        # print("[" + Fore.RED + "DBG" + Fore.RESET + "] " + "Checking port: {}".format(port)) #DEBUG
+        #print("[" + Fore.RED + "DBG" + Fore.RESET + "] " + "Checking port: {}".format(port)) #DEBUG
 
         if result == 0:
             print(Fore.GREEN + "[*] Port {} is open".format(port))
